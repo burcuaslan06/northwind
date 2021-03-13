@@ -10,10 +10,10 @@ import { Todo } from 'src/app/models/todo';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
- // products: Product[] = [];
+ // products: Product[] = []; 
  todos:Todo[] = [];
   apiUrl= "https://jsonplaceholder.typicode.com/todos"
-  
+  //burscu
 
   constructor(private httpClient: HttpClient) {}
   //constructor amacı productComponenti bellekte oluşturmaktır
