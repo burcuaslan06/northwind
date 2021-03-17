@@ -13,7 +13,7 @@ export class ProductComponent implements OnInit {
  // products: Product[] = []; 
  todos:Todo[] = [];
   apiUrl= "https://jsonplaceholder.typicode.com/todos"
-  //burscu
+  //
 
   constructor(private httpClient: HttpClient) {}
   //constructor amacı productComponenti bellekte oluşturmaktır
