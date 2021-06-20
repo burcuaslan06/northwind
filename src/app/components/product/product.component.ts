@@ -1,38 +1,46 @@
-//import { ProductResponseModel } from './../../models/productResponseModel';
+import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { HttpClient } from '@angular/common/http';//apiye yani backenddeki dataya bağlanmak için kullanılır
-import { Todo } from 'src/app/models/todo';
-//import { TodoResponseModel } from 'src/app/models/todoResponseModel';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
- // products: Product[] = []; 
- todos:Todo[] = [];
-  apiUrl= "https://jsonplaceholder.typicode.com/todos"
-  //
+  products: Product[] = [];
+  dataLoaded = false;
+  filterText = "";
 
-  constructor(private httpClient: HttpClient) {}
-  //constructor amacı productComponenti bellekte oluşturmaktır
+
+  constructor(
+    private productService: ProductService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getProducts();
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['categoryId']) {
+        this.getProductsByCategory(params['categoryId']);
+      } else {
+        this.getProducts();
+      }
+    });
   }
-  //productcomponent açıldığında ilk açılan koddur
 
   getProducts() {
-    //apiye bağlanacağız...
-   /* this.httpClient.get<ProductResponseModel>(this.apiUrl).subscribe((response)=>{
-      //yanıt başarılı bir şekilde geldiğinde çalışacak yer
-      this.products = response.data
+    this.productService.getProducts().subscribe((response) => {
+      this.products = response.data;
+      this.dataLoaded = true;
     });
-    */
-   /*this.httpClient.get<TodoResponseModel>(this.apiUrl).subscribe((response)=>{
-     this.todos = response.data
-   })
-*/
+  }
+
+  getProductsByCategory(categoryId: number) {
+    this.productService
+      .getProductsByCategory(categoryId)
+      .subscribe((response) => {
+        this.products = response.data;
+        this.dataLoaded = true;
+      });
   }
 }

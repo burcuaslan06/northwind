@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './components/product/product.component';
 import { CategoryComponent } from './components/category/category.component';
 import { NaviComponent } from './components/navi/navi.component';
-import { TodoComponent } from './components/todo/todo.component';
+import { VatAddedPipe } from './pipes/vat-added.pipe';
+import { FilterPipePipe } from './pipes/filter-pipe.pipe';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms"
+import { ProductAddComponent } from './components/product-add/product-add.component';
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
+
 
 @NgModule({
   declarations: [
@@ -14,14 +20,22 @@ import { TodoComponent } from './components/todo/todo.component';
     ProductComponent,
     CategoryComponent,
     NaviComponent,
-    TodoComponent
+    VatAddedPipe,
+    FilterPipePipe,
+    ProductAddComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right"
+    })
+    ],
   providers: [],
-  bootstrap: [AppComponent]  //uygulamanın AppComponent ile başlayacağını söyler
+  bootstrap: [AppComponent], 
 })
-export class AppModule { }
+export class AppModule {}
